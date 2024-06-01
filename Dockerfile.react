@@ -1,0 +1,16 @@
+FROM node:20 AS react-build
+
+# Set the working directory
+WORKDIR /app/client
+
+# Copy the React app source code
+COPY client/ ./
+
+# Install the dependencies and build the React app
+# RUN npm install
+# RUN npm run build
+# RUN npm run dev
+
+EXPOSE 5173
+
+CMD ["npm", "run", "dev"]

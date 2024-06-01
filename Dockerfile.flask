@@ -1,0 +1,16 @@
+# Stage 2: Setup the Flask app
+FROM python:3.8-slim
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the Flask app source code
+COPY requirements.txt /app/
+RUN pip install -r requirements.txt
+COPY app.py /app/
+
+# Expose the port the Flask app runs on
+EXPOSE 5000
+
+# Command to run the Flask app
+CMD ["flask", "run"]

@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.react
+    restart: always
+    ports:
+      - "5173:5173"
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.flask
+    restart: always
+    ports:
+      - "5000:5000"
+      - "5175:5175"
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3307
+      MYSQL_USER: root
+      MYSQL_PASSWORD: my-secret-pw
