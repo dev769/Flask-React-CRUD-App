@@ -1,4 +1,4 @@
-//C:\react-js\myreactdev\src\pages\CreateUser.js
+
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -10,15 +10,18 @@ export default function CreateUser() {
     const value = event.target.value;
     setInputs((values) => ({ ...values, [name]: value }));
   };
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    axios
-      .post("http://127.0.0.1:5000/add_user", inputs)
-      .then(function (response) {
-        console.log(response.data);
-        navigate("/");
-      });
+    try {
+      const response = await axios.post("http://127.0.0.1:5000/add_user", inputs);
+      console.log(response.data);
+      navigate("/");
+    } catch (error) {
+      console.error("Error creating user:", error);
+    }
   };
+
   return (
     <div>
       <div className="container h-100">
