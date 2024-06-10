@@ -8,21 +8,25 @@ export default function ListUserPage() {
     getUsers();
   }, []);
 
-  function getUsers() {
-    axios.get("http://127.0.0.1:5000/get_user_details").then(function (response) {
+  async function getUsers() {
+    try {
+      const response = await axios.get("http://127.0.0.1:5000/get_user_details");
       console.log(response.data);
       setUsers(response.data);
-    });
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
   }
 
-  const deleteUser = (id) => {
-    axios
-      .delete(`http://127.0.0.1:5000/remove_user`,{data : {id:id}})
-      .then(function (response) {
-        console.log(response.data);
-        getUsers();
-      });
-    alert("Successfully Deleted");
+  const deleteUser = async (id) => {
+    try {
+      const response = await axios.delete(`http://127.0.0.1:5000/remove_user`, { data: { id: id } });
+      console.log(response.data);
+      getUsers();
+      alert("Successfully Deleted");
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
   };
 
   return (
